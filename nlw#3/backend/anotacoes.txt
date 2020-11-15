@@ -1,0 +1,134 @@
+                Node.js
+
+* É um fluxo de requisição e resposta
+* Sempre que um usuário faz uma rota ou um usuário faz uma chamada pra a api, chama uma requisição e o node devolve uma resposta.
+
+                Express
+
+* É um framework em node para ajudar a lidar com requisição e resposta
+* Ajuda a configurar rotas na aplicação
+
+OBS.: Como o node só entende js temos que instalar o ts como -D. Para executar yarn tsc --init, que vai criar um arquivo tsconfig.json.
+
+OBS.: yarn add ts-node-dev -D é um pacote para executar o projeto utilizando ts e o node
+
+OBS.: O transpile-only vai deixar o codigo mais rápido
+
+* Quando utilizamos o get(), temos que passar o request e o response
+* request -> busca de dados
+* response -> Resposta do back-end. Sempre usar o JSON
+
+
+app.get('/users', (request, response) => { // ROTA -> Conjundo . '/users' -> recurso
+  return response.json({ message: 'Hello World' })
+})
+
+              Métodos HTTP
+
+* Nas API's usamos quatro métodos mais comuns;
+
+* GET, POST, PUT e DELETE;
+
+* Muda no significado semântico na aplicação;
+
+* GET -> buscar uma informação(lista, item);
+
+* POST -> Cria uma informação nova;
+
+* PUT -> Edita uma informação;
+
+* DELETE -> Deleta uma informação;
+
+OBS.: Se fizer uma rota 'POST', o navegador não acessa. Porque ele só faz requisição GET.
+
+                Parâmetros
+* Query: http://localhost:3333/users?search=Lucas -> são enviados pela propria rota. Os Parâmetros, significam que ele vai buscar todos os nomes que tem Lucas, por exemplo. Podemos concatenar com o &&. 
+
+* Query -> são utilizamos pra filtro, paginação.
+
+* Route: http://localhost:3333/users/1 -> São enviados pelas rotas, porem sem o nome. É usado para identificar um recurso. Para deletar(DELETE) e registrar (PUT), temos que identificar um recurso no bd. 
+
+* Body: http://localhost:3333/users/1 -> É o corpo da requisição. Serve para enviar dados que não cabem nos outros Parâmetros. Vêm de formulários.
+
+* Podemos enviar um Body de varias formas. A forma mais comum do html é usando um formulario. E podemos enviar usando o multpart form, mas para API's é JSON.
+
+console.log(request.query) // query
+  console.log(request.params) // Route
+  console.log(request.body) // body
+
+              Banco de dados
+
+* Para o node acessar o Baco de dados, vamos usar a ferramanta typeorm e o banco de dados é o sqlite3
+
+* sqlite3 é a integração do sqlite com o node
+
+* Existem 3 formas de lidar com o bd no backend: driver nativo query builder e ORM;
+
+* O driver nativo podemos usar o sqlite3, que permite executar os dados diretamente pelo node, mas não oferece nem um tipo de abstração;
+
+* O query builder, que o mais famoso é o knex.js. Escrevemos tudo com JavaScript. Escrevemos tudo usando js, e no final ele converte pra SELECT * FROM USERS... ele é um construtor de querys;
+
+* No ORM, teremos uma classe do js mesmo, que simbolisa um tabela no bd. Faz um relacionamento de objeto pra cada resistro da tabela.
+
+* O typeorm precisa de que fazemos um arquivo ormconfig.json, deve mater todas as informações da conexão do bd.
+
+OBS.: Quando usamos ou o query builder ou ORM, podemos trocar entre um bd e outro sem trocar nada.
+
+                    Migrations
+
+* É um controle de versão do bd
+
+* Permitem que toda vez que for fazer uma alteração, criar, deletar elas permitem que eu crie um arquivo do que pode ser feito.
+
+                    Método UP
+
+* Realiza alterações no bd
+
+* Criar uma tabela
+
+* Criar um novo campo
+
+* Deleta algum campo
+
+                    Método down
+
+* Desfaz o que foi feito no UP
+
+                    integração no typeorm
+
+* ir no tsconfig.json
+* strictPropertyInitialization: false
+
+                    Decoration
+
+* É utilizado na classe, em propriedades ou em funçoes é usado um @ no começo
+
+                    Repositorio parttem
+
+* É toda a operação que vc faz no bd
+
+                    MVC
+
+* M -> Model. É a representação de uma tabela no banco. Representa um a entidade na aplicação.
+
+* V -> Views. Como tudo fica disponivel pro backend
+
+* C -> Controllers. Fica a logica das rotas.
+
+                    Views
+                  
+* Para receber as images que não iremos usar Views
+
+* As Views vão dizer como os dados vão ficar disponiveis pro front-end, ou seja, pra quem consumir a API.
+
+              trabalhando com exceções
+
+* Para capiturar os erros temos que instalar yarn add express-async-errors 
+
+* Para os erros não serem exibidos para os usuário final, temos que fazer uma pasta para erros
+
+              Validação de dados
+
+* instalamos o yarn add yup
+
+OBS.: Para a aplicação ser acessivel de diferentes dominios temos que instalar o cors.
